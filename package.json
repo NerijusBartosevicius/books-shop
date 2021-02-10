@@ -23,6 +23,7 @@
         "sass-loader": "^8.0.2"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.2",
         "bootstrap-datetimepicker-npm": "^4.17.37-npm"
     }
 }
