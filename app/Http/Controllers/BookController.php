@@ -10,6 +10,12 @@ use Intervention\Image\Facades\Image;
 
 class BookController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+        $this->middleware('isAdmin')->only('delete','confirmBook');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -40,6 +46,18 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'title' => 'required|max:100',
+                'description' => 'required',
+                'is_confirm' => 'boolean',
+                'price' => 'required|numeric|max:99999',
+                'discount' => 'numeric|max:100',
+                'genre' => 'required',
+                'cover' => 'mimes:jpeg,jpg,png,gif|nullable|max:10000'
+            ]
+        );
+
         $data = $request->all();
         $data['user_id'] = auth()->user()->id;
         $data['cover'] = $request->hasFile('cover') ? $this->uploadCover($request->file('cover')) : null;
@@ -57,23 +75,8 @@ class BookController extends Controller
             }
         }
 
-        return redirect()->route('book.index')->with('success', 'Book created successfully');
+        return redirect()->route('books.index')->with('success', 'Book created successfully');
     }
-
-    private function uploadCover($cover)
-    {
-        $coverName = auth()->user()->id . '_' . time() . '.' . $cover->getClientOriginalExtension();
-        $destinationPath = public_path('images/books');
-        $realCoverName = $destinationPath . '/' . $coverName;
-        $resize_image = Image::make($cover->getRealPath());
-        $resize_image->resize(
-            400,
-            700
-        )->save($realCoverName);
-
-        return $coverName;
-    }
-
 
     /**
      * Display the specified resource.
@@ -83,7 +86,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('books.view', compact('book'));
     }
 
@@ -118,6 +121,35 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+
+        return redirect('books')->with('success', 'Successfully deleted the book!');
     }
+
+    private function uploadCover($cover)
+    {
+        $coverName = auth()->user()->id . '_' . time() . '.' . $cover->getClientOriginalExtension();
+        $destinationPath = public_path('images/books');
+        $realCoverName = $destinationPath . '/' . $coverName;
+        $resize_image = Image::make($cover->getRealPath());
+        $resize_image->resize(
+            400,
+            700
+        )->save($realCoverName);
+
+        return $coverName;
+    }
+
+    public function confirmBook($id)
+    {
+        //dd($id);
+        $book = Book::find($id);
+        $book->is_confirmed = !$book->is_confirmed;
+        $book->save();
+
+        return redirect()->back()->with('success', 'Successfully changed status the book!');
+    }
+
+
 }

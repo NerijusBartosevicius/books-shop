@@ -12,6 +12,11 @@ class Book extends Model
 
     protected $fillable = ['title', 'price', 'discount', 'description', 'is_confirmed', 'user_id','cover'];
 
+    protected $casts = [
+        'is_confirmed' => 'boolean',
+    ];
+
+
     public function setUserIdAttribute($value)
     {
         $this->attributes['user_id'] = strtolower($value);

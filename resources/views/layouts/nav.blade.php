@@ -14,14 +14,10 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('books.index') }}">{{ __('All books') }}</a>
-                         </li>
                         @auth
                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('books.index') }}">{{ __('My books') }}</a>
                          </li>
-
                         @endauth
                         <!-- Authentication Links -->
                         @guest

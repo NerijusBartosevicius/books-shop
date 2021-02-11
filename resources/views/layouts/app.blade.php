@@ -23,6 +23,7 @@
         @include('layouts.nav')
 
         <main class="container">
+
             <div class="row mt-3 mb-3">
                 <div class="col-6">
                     <form class="form-inline">
@@ -35,25 +36,16 @@
                       </form>
                   </div>
                    <div class="col-6">
-                        <a href="{{ route('books.create') }}" class="btn btn-dark float-right">{{ __('Add Book to Listing') }}</a>
+                        @auth()
+                            <a href="{{ route('books.create') }}" class="btn btn-dark float-right">{{ __('Add Book to Listing') }}</a>
+                        @endauth
                   </div>
             </div>
+            @include('layouts.message')
             @yield('content')
         </main>
     </div>
    <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')
-    <script>
-          $(document).ready(function() {
-      $(".add-more").click(function(){
-          var html = $(".copy").html();
-          $(".after-add-more").after(html);
-      });
-      $("body").on("click",".remove",function(){
-          $(this).parents(".control-group").remove();
-      });
-    });
-
-    </script>
 </body>
 </html>

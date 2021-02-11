@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $books = Book::with('authors')->get();
+        foreach ($books as $book){
+            //print $book->title.'<br>';
+            foreach ($book->authors as $author){
+                print $author->name.' <br>';
+            }
+        }
+        //dd($books);
         return view('home');
     }
 }

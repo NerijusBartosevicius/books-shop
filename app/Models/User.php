@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,Timestamp;
+    use HasFactory, Notifiable, Timestamp;
 
     /**
      * The attributes that are mass assignable.
@@ -43,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday' => 'date',
     ];
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
 }

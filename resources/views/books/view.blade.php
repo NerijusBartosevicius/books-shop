@@ -3,13 +3,27 @@
 @section('content')
 <div class="row">
     <div class="col-4">
-         @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
+
+        @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
             <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
         @else
             <img class="card-img-top" src="{{ asset('images/books/no-cover.png') }}" alt="{{ $book->title }}">
         @endif
     </div>
     <div class="col-8">
+        <div class="mb-3 d-flex">
+          @if( ( auth()->user() && auth()->user()->is_admin ) || ( auth()->user() && auth()->user()->id == $book->user_id ))
+            <a class="btn btn-sm btn-dark" href="">Edit</a>
+          @endif
+          @if( auth()->check() && auth()->user()->is_admin )
+              <a class="btn btn-sm btn-dark" href="{{ route('confirmBook',$book->id) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+              <form method="POST" action="{{ route('books.destroy',$book) }}">
+                @csrf
+                @method('DELETE')
+                <input type="submit" class="btn-dark btn btn-sm" value="{{__('Delete')}}">
+              </form>
+          @endif
+        </div>
         <h1>{{ $book->title }}</h1>
         <hr>
         <div>
@@ -52,7 +66,6 @@
         </form>
     </div>
 </div>
-
 
 @endsection
 

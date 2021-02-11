@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
 
         );
         \App\Models\User::factory(1)->create();
-         \App\Models\Author::factory(100)->create();
+        //\App\Models\Author::factory(100)->create();
 
     }
 }
