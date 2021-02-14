@@ -2,7 +2,7 @@
 
 @section('content')
 <h1>{{ __('Add new book') }}</h1>
-<form method="post" enctype="multipart/form-data" action="{{ route('books.store') }}">
+<form method="post" enctype="multipart/form-data" action="{{ route('user.books.store') }}">
   @csrf
   <div class="form-group">
     <label for="title">{{ __('Title') }}</label>

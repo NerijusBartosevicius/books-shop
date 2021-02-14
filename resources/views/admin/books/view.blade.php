@@ -12,17 +12,18 @@
     </div>
     <div class="col-8">
         <div class="mb-3 d-flex">
-          @if( ( auth()->user() && auth()->user()->is_admin ) || ( auth()->user() && auth()->user()->id == $book->user_id ))
-            <a class="btn btn-sm btn-dark" href="">Edit</a>
-          @endif
-          @if( auth()->check() && auth()->user()->is_admin )
-              <a class="btn btn-sm btn-dark" href="{{ route('confirmBook',$book->id) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
-              <form method="POST" action="{{ route('books.destroy',$book) }}">
+          @if( auth()->user()->id == $book->user_id )
+              <a class="btn btn-sm btn-dark" href="{{ route('user.books.edit',$book) }}">Edit</a>
+              <form method="POST" action="{{ route('user.books.destroy',$book) }}">
                 @csrf
                 @method('DELETE')
                 <input type="submit" class="btn-dark btn btn-sm" value="{{__('Delete')}}">
               </form>
           @endif
+          @isAdmin
+            <a class="btn btn-sm btn-dark" href="{{ route('confirmBook',$book->id) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+          @endisAdmin
+
         </div>
         <h1>{{ $book->title }}</h1>
         <hr>

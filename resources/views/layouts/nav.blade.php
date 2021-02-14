@@ -14,11 +14,22 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        @auth
+                        @isAdmin
                          <li class="nav-item">
-                            <a class="nav-link" href="{{ route('books.index') }}">{{ __('My books') }}</a>
+                            <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                          </li>
-                        @endauth
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.books.index') }}">{{ __('Books') }}</a>
+                         </li>
+                        @endisAdmin
+                        @isSimpleUser
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.books.index') }}">{{ __('All books') }}</a>
+                             </li>
+                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('user.myBooks') }}">{{ __('My books') }}</a>
+                             </li>
+                        @endisSimpleUser
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

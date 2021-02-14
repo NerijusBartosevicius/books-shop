@@ -29,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('isAdmin', function () {
             return auth()->check() && auth()->user()->isAdmin();
         });
+        Blade::if('isSimpleUser', function () {
+            return auth()->check() && !auth()->user()->isAdmin();
+        });
         Paginator::useBootstrap();
     }
 }

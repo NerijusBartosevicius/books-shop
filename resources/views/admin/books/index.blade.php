@@ -5,7 +5,7 @@
         @foreach($books as $book)
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
-              <a href="{{ route('books.show',['book' => $book->id]) }}">
+              <a href="{{ route('user.books.show',['book' => $book->id]) }}">
                   @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
                     <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
                   @else
@@ -14,7 +14,7 @@
               </a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{ route('books.show',['book' => $book->id]) }}">{{ $book->title }}</a>
+                  <a href="{{ route('user.books.show',['book' => $book->id]) }}">{{ $book->title }}</a>
                 </h4>
                 @foreach($book->authors as $author)
                     <div>{{$author->name}}</div>
