@@ -94,8 +94,9 @@ class BookController extends Controller
      */
     public function update(BookUpdateRequest $request, $id)
     {
-        $this->authorize('update', $request);
+
         $book = Book::find($id);
+        $this->authorize('update', $book);
         $data = $request->validated();
         if ($request->has('remove_cover') && $request->has('remove_cover') == 1 && !$request->hasFile('cover')) {
             $this->removeCoverFromStorage($book->cover);
