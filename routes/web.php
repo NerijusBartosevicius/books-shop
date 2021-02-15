@@ -18,7 +18,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/', [App\Http\Controllers\User\BookController::class, 'index']);
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/books/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('books');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'],function () {
@@ -28,6 +29,7 @@ Route::group(['middleware' => 'auth'],function () {
     });
 
     Route::group(['prefix' => 'user', 'as' =>'user.'],function (){
+        Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
         Route::get('my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('myBooks');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
     });

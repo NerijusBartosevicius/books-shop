@@ -5,7 +5,7 @@
         @foreach($books as $book)
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
-              <a href="{{ route('user.books.show',['book' => $book->id]) }}">
+              <a href="{{ route('books',['id' => $book->id]) }}">
                   @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
                     <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
                   @else
@@ -14,7 +14,7 @@
               </a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{ route('user.books.show',['book' => $book->id]) }}">{{ $book->title }}</a>
+                  <a href="{{ route('books',['id' => $book->id]) }}">{{ $book->title }}</a>
                 </h4>
                 @foreach($book->authors as $author)
                     <div>{{$author->name}}</div>
@@ -30,7 +30,19 @@
                 <p class="card-text">{{ \Str::of($book->description)->limit(20) }}</p>
               </div>
               <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                <small class="text-muted">
+                    @if ($book->bookReviews->count() > 0)
+                        @for ($i = 1; $i < 6; $i++)
+                            @if ($i <= round($book->bookReviews->sum('rating') / $book->bookReviews->count()))
+                                &#9733;
+                            @else
+                                &#9734;
+                            @endif
+                        @endfor
+                    @else
+                        &#9734;&#9734;&#9734;&#9734;&#9734;
+                    @endif
+                </small>
                 @if($book->created_at >= date('Y-m-d', strtotime("-1 weeks")))
                     <div class="badge bg-success text-light ml-1">New</div>
                 @endif

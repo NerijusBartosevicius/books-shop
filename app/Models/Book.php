@@ -30,4 +30,9 @@ class Book extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function bookReviews()
+    {
+        return $this->hasMany(BookReview::class)->latest();
+    }
 }

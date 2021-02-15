@@ -45,9 +45,8 @@ class BookController extends Controller
     public function store(BookStoreRequest $request)
     {
         $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
         $data['cover'] = $request->hasFile('cover') ? $this->uploadCover($request->file('cover')) : null;
-        $book = Book::create($data);
+        $book = auth()->user()->books()->create($data);
         $book->genres()->sync($request->genres);
 
         foreach ($request->authors as $author) {
@@ -69,7 +68,8 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::findOrFail($id);
-        return view('user.books.view', compact('book'));
+        $reviews = $book->bookReviews()->paginate(10);
+        return view('user.books.view', compact('book', 'reviews'));
     }
 
     /**
@@ -94,7 +94,6 @@ class BookController extends Controller
      */
     public function update(BookUpdateRequest $request, $id)
     {
-
         $book = Book::find($id);
         $this->authorize('update', $book);
         $data = $request->validated();

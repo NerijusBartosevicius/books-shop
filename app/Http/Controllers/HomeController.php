@@ -3,20 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -24,14 +13,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::with('authors')->get();
-        foreach ($books as $book){
-            //print $book->title.'<br>';
-            foreach ($book->authors as $author){
-                print $author->name.' <br>';
-            }
-        }
-        //dd($books);
-        return view('home');
+        $books = Book::latest()->where(['is_confirmed' => 1])->paginate(25);
+        return view('user.books.index', compact('books'));
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $book = Book::findOrFail($id);
+        $reviews = $book->bookReviews()->paginate(10);
+        return view('user.books.view', compact('book', 'reviews'));
     }
 }
