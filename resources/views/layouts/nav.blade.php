@@ -24,9 +24,6 @@
                         @endisAdmin
                         @isSimpleUser
                              <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.books.index') }}">{{ __('All books') }}</a>
-                             </li>
-                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.myBooks') }}">{{ __('My books') }}</a>
                              </li>
                         @endisSimpleUser
@@ -59,7 +56,11 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+                                    <a class="dropdown-item" href="{{ route('user.settings') }}">
+                                        {{ __('Settings') }}
+                                    </a>
                                 </div>
+
                             </li>
                         @endguest
                     </ul>

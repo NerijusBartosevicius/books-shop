@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Traits\Timestamp;
+use DateTimeInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -43,6 +44,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'birthday' => 'date',
     ];
+
+    public function getBirthdayAttribute($value)
+    {
+        return date('Y-m-d', strtotime($value));
+    }
 
     public function isAdmin()
     {

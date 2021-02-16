@@ -32,6 +32,11 @@ Route::group(['middleware' => 'auth'],function () {
         Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
         Route::get('my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('myBooks');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
+
+        // User settings
+        Route::get('settings', [App\Http\Controllers\User\SettingsController::class, 'index'])->name('settings');
+        Route::post('settings', [App\Http\Controllers\User\SettingsController::class, 'updateUserData'])->name('updateUserData');
+        Route::post('settings/password', [App\Http\Controllers\User\SettingsController::class, 'updateUserPassword'])->name('updateUserPassword');
     });
 
     Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' =>'admin.'],function (){

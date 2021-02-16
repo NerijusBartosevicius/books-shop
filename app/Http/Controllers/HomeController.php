@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::latest()->where(['is_confirmed' => 1])->paginate(25);
+        $books = Book::with(['bookReviews'])->latest()->where(['is_confirmed' => 1])->paginate(25);
         return view('user.books.index', compact('books'));
     }
 
@@ -25,8 +25,8 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        $book = Book::findOrFail($id);
-        $reviews = $book->bookReviews()->paginate(10);
+        $book = Book::with(['authors'])->findOrFail($id);
+        $reviews = $book->bookReviews()->with(['user'])->paginate(10);
         return view('user.books.view', compact('book', 'reviews'));
     }
 }
