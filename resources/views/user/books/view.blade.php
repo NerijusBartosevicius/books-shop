@@ -23,9 +23,8 @@
               </form>
           @endcan
           @isAdmin
-            <a class="btn btn-sm btn-dark" href="{{ route('confirmBook',$book->id) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+            <a class="btn btn-sm btn-dark" href="{{ route('admin.books.confirmBook',$book) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
           @endisAdmin
-
         </div>
 
         <div class="row">

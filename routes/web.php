@@ -40,8 +40,8 @@ Route::group(['middleware' => 'auth'],function () {
     });
 
     Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' =>'admin.'],function (){
-        Route::resource('books', App\Http\Controllers\Admin\BookController::class);
-        Route::resource('users', App\Http\Controllers\Admin\UserController::class);
+        Route::get('books/{id}/confirmBook', [App\Http\Controllers\Admin\BookController::class, 'confirmBook'])->name('books.confirmBook');
+        Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['view','create']);
     });
 });
 //Route::get('books/{id}/confirm', [App\Http\Controllers\BookController::class,'confirmBook'])->name('confirmBook');

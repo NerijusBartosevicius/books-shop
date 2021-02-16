@@ -49,6 +49,17 @@
                 @if($book->discount > 0)
                     <div class="badge bg-danger  text-light ml-1">-{{$book->discount}}%</div>
                 @endif
+                @isAdmin
+                    <hr>
+                    <div class="d-flex">
+                    <a class="btn btn-sm btn-dark mr-1" href="{{ route('admin.books.confirmBook',$book) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+                    <form method="POST" action="{{ route('user.books.destroy',$book) }}">
+                      @csrf
+                      @method('DELETE')
+                      <input type="submit" class="btn-danger btn btn-sm" value="{{__('Delete')}}">
+                    </form>
+                    </div>
+                @endisAdmin
               </div>
             </div>
         </div>

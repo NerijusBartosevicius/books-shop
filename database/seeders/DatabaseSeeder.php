@@ -13,15 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(
-            [
-                GenresTableSeeder::class,
-
-            ]
-
-        );
-        \App\Models\User::factory(1)->create();
-        //\App\Models\Author::factory(100)->create();
-
+        $this->call([GenresTableSeeder::class, BookImagesCleaningSeeder::class]);
+        \App\Models\User::factory(100)->create();
+        \App\Models\Author::factory(100)->create();
+        \App\Models\Book::factory(10)->create();
     }
 }

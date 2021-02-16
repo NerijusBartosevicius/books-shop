@@ -35,4 +35,10 @@ class Book extends Model
     {
         return $this->hasMany(BookReview::class)->latest();
     }
+
+    public function scopeByRole($query)
+    {
+        return auth()->check() && auth()->user()->is_admin ? $query : $query->where('is_confirmed', 1);
+    }
+
 }

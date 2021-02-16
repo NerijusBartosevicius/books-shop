@@ -53,7 +53,7 @@ class BookPolicy
      */
     public function update(User $user, Book $book)
     {
-        return $book->user_id === $user->id;
+        return ($book->user_id === $user->id || $user->is_admin == 1);
     }
 
     /**
@@ -65,7 +65,7 @@ class BookPolicy
      */
     public function delete(User $user, Book $book)
     {
-        return $book->user_id === $user->id;
+        return ($book->user_id === $user->id || $user->is_admin == 1);
     }
 
     /**
@@ -77,7 +77,7 @@ class BookPolicy
      */
     public function restore(User $user, Book $book)
     {
-        return $book->user_id === $user->id;
+        return ($book->user_id === $user->id || $user->is_admin == 1);
     }
 
     /**

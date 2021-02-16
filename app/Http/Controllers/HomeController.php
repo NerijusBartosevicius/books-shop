@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews'])->latest()->where(['is_confirmed' => 1])->paginate(25);
+        $books = Book::with(['bookReviews'])->ByRole()->latest()->paginate(25);
         return view('user.books.index', compact('books'));
     }
 

@@ -35,12 +35,9 @@
                       </form>
                   </div>
                    <div class="col-6">
-                        @isAdmin
-                            <a href="{{ route('admin.books.create') }}" class="btn btn-dark float-right">{{ __('Add Book to Listing') }}</a>
-                        @endisAdmin
-                        @isSimpleUser
+                        @Auth
                             <a href="{{ route('user.books.create') }}" class="btn btn-dark float-right">{{ __('Add Book to Listing') }}</a>
-                        @endisSimpleUser
+                        @endauth
                   </div>
             </div>
             @include('layouts.message')
