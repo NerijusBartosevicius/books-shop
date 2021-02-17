@@ -21,7 +21,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews'])->ByRole()->latest()->paginate(25);
+        $books = Book::with(['bookReviews'])->ByRole()->latest()->paginate();
         return view('user.books.index', compact('books'));
     }
 

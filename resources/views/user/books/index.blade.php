@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        @foreach($books as $book)
+        @forelse($books as $book)
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
               <a href="{{ route('books',['id' => $book->id]) }}">
@@ -63,7 +63,9 @@
               </div>
             </div>
         </div>
-        @endforeach
+        @empty
+            <div>{{ __('No books') }}</div>
+        @endforelse
      </div>
      <div class="float-right">
          @if ($books->previousPageUrl())

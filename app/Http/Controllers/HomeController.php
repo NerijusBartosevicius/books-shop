@@ -13,7 +13,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews'])->ByRole()->latest()->paginate(25);
+        $books = Book::with(['bookReviews','authors'])
+            ->when(request('search'),function ($query){
+                $search = request('search');
+                $query->orWhere('title','LIKE',"%{$search}%")
+                      ->orWhere('description','LIKE',"%{$search}%")
+                      ->orWhereHas('authors',function ($query) use ($search) {
+                          $query->where('name','LIKE',"%{$search}%");
+                      });
+            })
+            ->ByRole()
+            ->latest()
+            ->paginate();
         return view('user.books.index', compact('books'));
     }
 

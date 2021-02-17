@@ -12,6 +12,8 @@ class Book extends Model
 
     protected $fillable = ['title', 'price', 'discount', 'description', 'is_confirmed', 'user_id', 'cover'];
 
+    protected $perPage = 25;
+
     protected $casts = [
         'is_confirmed' => 'boolean',
     ];

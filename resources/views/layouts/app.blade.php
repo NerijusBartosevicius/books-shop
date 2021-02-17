@@ -25,12 +25,12 @@
 
             <div class="row mt-3 mb-3">
                 <div class="col-6">
-                    <form class="form-inline">
+                    <form class="form-inline" method="GET" action="{{ route('home') }}">
                         <div class="input-group">
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                           </div>
-                          <input type="text" class="form-control" placeholder="{{ __('Search') }}">
+                          <input type="text" class="form-control" name="search" value="{{request('search')}}" placeholder="{{ __('Search') }}">
                         </div>
                       </form>
                   </div>

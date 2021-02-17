@@ -56,6 +56,7 @@
         </div>
     </div>
 </div>
+
 <div class="row mt-3">
 
     <div class="col-12">
@@ -103,11 +104,12 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        @auth
+            <div class="row mt-3">
               <div class="col-12">
                <form method="post" action="{{ route('user.review') }}">
                 @csrf
-                <div class="rating">
+                   <div class="rating">
                   <input type="radio" id="star5" name="rating" checked value="{{old('rating',5)}}" /><label for="star5" title="Meh">5 stars</label>
                   <input type="radio" id="star4" name="rating" value="{{old('rating',4)}}" /><label for="star4" title="Not bad">4 stars</label>
                   <input type="radio" id="star3" name="rating" value="{{old('rating',3)}}" /><label for="star3" title="Kinda bad">3 stars</label>
@@ -116,13 +118,16 @@
                 </div>
                 <div class="form-group">
                     <textarea class="form-control" name="message" required rows="5">{{old('message')}}</textarea>
-                    <input type="hidden" name="book_id" value="{{$book->id}}">
+                    <input type="hidden" name="book_id" value="{{ $book->id }}">
                 </div>
                 <button type="submit" class="btn btn-primary">{{ __('Rate') }}</button>
                 </form>
              </div>
         </div>
-
+        @endAuth
+        @guest
+            <div class="alert alert-info mt-3" role="alert">{{ __('Only registered users can leave review') }}</div>
+        @endguest
     </div>
 
 </div>
