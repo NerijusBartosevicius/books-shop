@@ -19,7 +19,7 @@
                 @foreach($book->authors as $author)
                     <div>{{$author->name}}</div>
                 @endforeach
-                <h4>
+                <h4 class="mt-2">
                     @if($book->discount > 0)
                         <div class="text-danger"><del>{{ $book->price }} <i class="fas fa-euro-sign"></i> </del></div>
                         {{ number_format($book->price - ($book->discount * ($book->price/100)),2) }} <i class="fas fa-euro-sign"></i>
@@ -27,7 +27,7 @@
                         {{ $book->price }} <i class="fas fa-euro-sign"></i>
                     @endif
                 </h4>
-                <p class="card-text">{{ \Str::of($book->description)->limit(20) }}</p>
+                <p class="card-text">{{ \Str::of($book->description)->limit(50) }}</p>
               </div>
               <div class="card-footer">
                 <small class="text-muted">
