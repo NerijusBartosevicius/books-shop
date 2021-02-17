@@ -32,8 +32,8 @@
                 <h1>{{ $book->title }}</h1>
             </div>
             <div class="col-3 pt-2">
-                @if ($reviews->count() > 0)
-                    <div class="text-right"><i class="fas fa-star"></i> {{$reviews->sum('rating')/$reviews->count()}} </div>
+                @if ($book->bookReviews->count() > 0)
+                    <div class="text-right"><i class="fas fa-star"></i> {{ round($book->bookReviews->sum('rating') / $book->bookReviews->count()) }} </div>
                 @endif
             </div>
         </div>
