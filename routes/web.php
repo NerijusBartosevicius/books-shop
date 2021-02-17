@@ -25,12 +25,13 @@ Auth::routes();
 Route::group(['middleware' => 'auth'],function () {
 
     Route::get('/dashboard',function (){
-        return view('welcome');
+        return redirect()->route('home');
     });
 
     Route::group(['prefix' => 'user', 'as' =>'user.'],function (){
         Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
         Route::get('my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('myBooks');
+        Route::get('books/{id}/report', [App\Http\Controllers\User\BookController::class, 'reportBook'])->name('books.reportBook');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
 
         // User settings
@@ -44,6 +45,3 @@ Route::group(['middleware' => 'auth'],function () {
         Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['view','create']);
     });
 });
-//Route::get('books/{id}/confirm', [App\Http\Controllers\BookController::class,'confirmBook'])->name('confirmBook');
-//Route::get('books/{id}/remove-cover', [App\Http\Controllers\BookController::class,'removeCover'])->name('removeCover');
-//Route::resource('books', App\Http\Controllers\BookController::class);

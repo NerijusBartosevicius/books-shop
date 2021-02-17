@@ -5,12 +5,14 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BookStoreRequest;
 use App\Http\Requests\BookUpdateRequest;
+use App\Mail\User\BookReported;
 use App\Models\Author;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Mail;
 
 class BookController extends Controller
 {
@@ -160,6 +162,19 @@ class BookController extends Controller
     {
         $books = auth()->user()->books()->paginate(25);
         return view('user.books.index', compact('books'));
+    }
+
+    public function reportBook($id)
+    {
+        $book = Book::find($id);
+        $adminUsers = User::where('is_admin', 1)->pluck('email')->toArray();
+        if (count($adminUsers) > 0) {
+            Mail::to($adminUsers)
+                ->send(new BookReported($book));
+            return redirect()->back()->with('success', 'Successfully reported the book!');
+        } else {
+            return redirect()->back()->with('error', 'Error try again later!');
+        }
     }
 
 }

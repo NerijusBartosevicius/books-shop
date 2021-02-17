@@ -19,11 +19,11 @@
                             <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                          </li>
                         @endisAdmin
-                        @isSimpleUser
+                        @Auth
                              <li class="nav-item">
                                 <a class="nav-link" href="{{ route('user.myBooks') }}">{{ __('My books') }}</a>
                              </li>
-                        @endisSimpleUser
+                        @endAuth
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))

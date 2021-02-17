@@ -13,7 +13,7 @@
     <div class="col-8">
         <div class="mb-3 d-flex">
           @can('update', $book)
-              <a class="btn btn-sm btn-dark" href="{{ route('user.books.edit',$book) }}">Edit</a>
+              <a class="btn btn-sm btn-dark" href="{{ route('user.books.edit',$book) }}">{{__('Edit')}}</a>
           @endcan
           @can('delete', $book)
               <form method="POST" action="{{ route('user.books.destroy',$book) }}">
@@ -25,6 +25,9 @@
           @isAdmin
             <a class="btn btn-sm btn-dark" href="{{ route('admin.books.confirmBook',$book) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
           @endisAdmin
+          @auth
+             <a class="btn btn-sm btn-dark {{ empty(env('MAIL_HOST')) ? 'disabled' : '' }}" href="{{ route('user.books.reportBook',$book) }}">{{__('Report')}}</a>
+          @endauth
         </div>
 
         <div class="row">
