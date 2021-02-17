@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([GenresTableSeeder::class, BookImagesCleaningSeeder::class]);
         User::factory(100)->create();
-        Author::factory(100)->create();
-        Book::factory(10)->create()->each(
+        Author::factory(200)->create();
+        Book::factory(100)->create()->each(
             function ($book) {
                 $genres = Genre::all()->random(rand(0, 4))->pluck('id');
                 $book->genres()->attach($genres);
@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
                 $book->authors()->attach($authors);
             }
         );
-        BookReview::factory(100)->create();
+        BookReview::factory(1000)->create();
     }
 }
