@@ -18,15 +18,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = array('name'=>"Virat Gandhi");
-
-        Mail::send([], $data, function($message) {
-            $message->to('nerijus.bartosevicius@gmail.com', 'Tutorials Point')->subject
-            ('Laravel Basic Testing Mail');
-            $message->from('nerijus@dineta.lt','Virat Gandhi');
-        });
-        echo "Basic Email Sent. Check your inbox.";
-        exit;
         $users = User::where('id', '!=', auth()->user()->id)->paginate(20);
         return view('admin.users.index', compact('users'));
     }
