@@ -113,12 +113,7 @@
         <div class="row mt-3">
             <div class="col-12">
                 <div class="float-right">
-                     @if ($reviews->previousPageUrl())
-                        <a class="btn btn-primary" href="{{ $reviews->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
-                    @endif
-                    @if ($reviews->nextPageUrl())
-                        <a class="btn btn-primary" href="{{ $reviews->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
-                    @endif
+                    {{ $reviews->links() }}
                 </div>
             </div>
         </div>

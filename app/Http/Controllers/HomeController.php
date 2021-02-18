@@ -13,7 +13,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews','authors'])
+        $books = Book::with(['authors'])
+            ->withAvg('bookReviews','rating')
             ->when(request('search'),function ($query){
                 $search = request('search');
                 $query->orWhere('title','LIKE',"%{$search}%")
@@ -38,6 +39,6 @@ class HomeController extends Controller
     {
         $book = Book::with(['authors'])->findOrFail($id);
         $reviews = $book->bookReviews()->with(['user'])->paginate(10);
-        return view('user.books.view', compact('book', 'reviews'));
+        return view('user.books.show', compact('book', 'reviews'));
     }
 }

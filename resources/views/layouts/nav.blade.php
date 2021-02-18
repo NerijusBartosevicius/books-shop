@@ -21,7 +21,7 @@
                         @endisAdmin
                         @Auth
                              <li class="nav-item">
-                                <a class="nav-link" href="{{ route('user.myBooks') }}">{{ __('My books') }}</a>
+                                <a class="nav-link" href="{{ route('user.books.myBooks') }}">{{ __('My books') }}</a>
                              </li>
                         @endAuth
                         <!-- Authentication Links -->

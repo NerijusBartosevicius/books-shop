@@ -70,8 +70,8 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::findOrFail($id);
-        $reviews = $book->bookReviews()->paginate(10);
-        return view('user.books.view', compact('book', 'reviews'));
+        $reviews = $book->bookReviews()->simplePaginate(10);
+        return view('user.books.show', compact('book', 'reviews'));
     }
 
     /**
@@ -83,6 +83,7 @@ class BookController extends Controller
     public function edit($id)
     {
         $book = Book::findOrFail($id);
+        $this->authorize('update', $book);
         $genres = Genre::all();
         return view('user.books.edit', compact('book', 'genres'));
     }

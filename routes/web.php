@@ -30,7 +30,7 @@ Route::group(['middleware' => 'auth'],function () {
 
     Route::group(['prefix' => 'user', 'as' =>'user.'],function (){
         Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
-        Route::get('my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('myBooks');
+        Route::get('books/my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('books.myBooks');
         Route::get('books/{id}/report', [App\Http\Controllers\User\BookController::class, 'reportBook'])->name('books.reportBook');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
 
@@ -42,6 +42,6 @@ Route::group(['middleware' => 'auth'],function () {
 
     Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' =>'admin.'],function (){
         Route::get('books/{id}/confirmBook', [App\Http\Controllers\Admin\BookController::class, 'confirmBook'])->name('books.confirmBook');
-        Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['view','create']);
+        Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show','create']);
     });
 });

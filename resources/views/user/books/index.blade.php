@@ -31,17 +31,13 @@
               </div>
               <div class="card-footer">
                 <small class="text-muted">
-                    @if ($book->bookReviews->count() > 0)
-                        @for ($i = 1; $i < 6; $i++)
-                            @if ($i <= $book->reviews_average)
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if ($i <= $book->book_reviews_avg_rating)
                                 &#9733;
                             @else
                                 &#9734;
                             @endif
                         @endfor
-                    @else
-                        &#9734;&#9734;&#9734;&#9734;&#9734;
-                    @endif
                 </small>
                 @if( $book->is_new )
                     <div class="badge bg-success text-light ml-1">New</div>
