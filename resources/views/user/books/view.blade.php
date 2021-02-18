@@ -55,7 +55,22 @@
             @endforeach
         </div>
         <div class="mt-5">
+            <b>{{ __('Description:') }}</b>
             {{ $book->description }}
+        </div>
+        <div class="mt-2">
+            <b>{{ __('Price:') }}</b>
+            @if($book->discount > 0)
+                <span class="text-danger">
+                    <del>{{ $book->price }} <i class="fas fa-euro-sign"></i></del>
+                </span>
+                <span class="ml-2">
+                    {{ $book->price_after_discount }} <i class="fas fa-euro-sign"></i>
+                </span>
+                <span class="badge bg-success text-light">{{ __('Discount: -').$book->discount }}</span>
+            @else
+                {{ $book->price }} <i class="fas fa-euro-sign"></i>
+            @endif
         </div>
     </div>
 </div>

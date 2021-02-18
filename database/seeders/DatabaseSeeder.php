@@ -23,9 +23,9 @@ class DatabaseSeeder extends Seeder
         Author::factory(200)->create();
         Book::factory(100)->create()->each(
             function ($book) {
-                $genres = Genre::all()->random(rand(0, 4))->pluck('id');
+                $genres = Genre::all()->random(rand(1, 4))->pluck('id');
                 $book->genres()->attach($genres);
-                $authors = Author::all()->random(rand(0, 4))->pluck('id');
+                $authors = Author::all()->random(rand(1, 4))->pluck('id');
                 $book->authors()->attach($authors);
             }
         );
