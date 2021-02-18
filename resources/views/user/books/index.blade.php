@@ -6,7 +6,7 @@
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
               <a href="{{ route('books',['id' => $book->id]) }}">
-                  @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
+                  @if( $book->cover_exist )
                     <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
                   @else
                     <img class="card-img-top" src="{{ asset('images/books/no-cover.png') }}" alt="{{ $book->title }}">
@@ -22,7 +22,7 @@
                 <h4 class="mt-2">
                     @if($book->discount > 0)
                         <div class="text-danger"><del>{{ $book->price }} <i class="fas fa-euro-sign"></i> </del></div>
-                        {{ number_format($book->price - ($book->discount * ($book->price/100)),2) }} <i class="fas fa-euro-sign"></i>
+                        {{ $book->price_after_discount }} <i class="fas fa-euro-sign"></i>
                     @else
                         {{ $book->price }} <i class="fas fa-euro-sign"></i>
                     @endif
@@ -33,7 +33,7 @@
                 <small class="text-muted">
                     @if ($book->bookReviews->count() > 0)
                         @for ($i = 1; $i < 6; $i++)
-                            @if ($i <= round($book->bookReviews->sum('rating') / $book->bookReviews->count()))
+                            @if ($i <= $book->reviews_average)
                                 &#9733;
                             @else
                                 &#9734;
@@ -43,7 +43,7 @@
                         &#9734;&#9734;&#9734;&#9734;&#9734;
                     @endif
                 </small>
-                @if($book->created_at >= date('Y-m-d', strtotime("-1 weeks")))
+                @if( $book->is_new )
                     <div class="badge bg-success text-light ml-1">New</div>
                 @endif
                 @if($book->discount > 0)

@@ -77,7 +77,7 @@
     </div>
   </div>
 
-  @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
+  @if( $book->cover_exist )
      <img class="card-img-top w-25 mb-3 cover-img" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
      <div class="custom-control custom-switch mb-3">
           <input type="checkbox" class="custom-control-input" id="customSwitch1" name="remove_cover" value="1">

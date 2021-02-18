@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-4">
 
-        @if( !is_null($book->cover) && file_exists(public_path('images/books/'.$book->cover)) )
+        @if( $book->cover_exist )
             <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
         @else
             <img class="card-img-top" src="{{ asset('images/books/no-cover.png') }}" alt="{{ $book->title }}">
@@ -36,7 +36,7 @@
             </div>
             <div class="col-3 pt-2">
                 @if ($book->bookReviews->count() > 0)
-                    <div class="text-right"><i class="fas fa-star"></i> {{ round($book->bookReviews->sum('rating') / $book->bookReviews->count()) }} </div>
+                    <div class="text-right"><i class="fas fa-star"></i> {{ $book->reviews_average }} </div>
                 @endif
             </div>
         </div>
