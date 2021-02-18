@@ -11,8 +11,7 @@ class SettingsController extends Controller
 {
     public function index()
     {
-        $user = auth()->user();
-        return view('user.settings.index', compact('user'));
+        return view('user.settings.index');
     }
 
     public function updateUserData(UserUpdateDataRequest $request)

@@ -16,21 +16,21 @@
             <div class="row">
                     <div class="col-md-6">
                         <label for="password">{{ __('Name') }}</label>
-                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name',$user->name) }}" required autocomplete="name" autofocus>
+                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name',auth()->user()->name) }}" required autocomplete="name" autofocus>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
                         <label for="password">{{ __('E-Mail Address') }}</label>
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email',$user->email) }}" required autocomplete="email">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email',auth()->user()->email) }}" required autocomplete="email">
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6">
                         <label for="password">{{ __('Birthday') }}</label>
-                        <input id="birthday" type="text" class="datepicker form-control" name="birthday" value="{{ old('birthday',$user->birthday) }}" required  autocomplete="Birthday">
+                        <input id="birthday" type="text" class="datepicker form-control" name="birthday" value="{{ old('birthday',auth()->user()->birthday) }}" required  autocomplete="Birthday">
 
                     </div>
                 </div>
