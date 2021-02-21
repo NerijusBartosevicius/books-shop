@@ -57,8 +57,12 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
+                                <div class="input-group border-1">
+                                  <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default show-pass" data-value="password" type="button"><i class="fas fa-eye"></i></button>
+                                  </span>
+                                </div>
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -71,7 +75,12 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                 <div class="input-group border-1">
+                                  <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                  <span class="input-group-btn">
+                                    <button class="btn btn-default show-pass" data-value="password-confirm" type="button"><i class="fas fa-eye"></i></button>
+                                  </span>
+                                </div>
                             </div>
                         </div>
 
@@ -88,4 +97,18 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+<script>
+$(".show-pass").on('click',function() {
+
+    var $pwd = $("#" + $( this ).data( "value" ));
+    if ($pwd.attr('type') === 'password') {
+        $pwd.attr('type', 'text');
+    } else {
+        $pwd.attr('type', 'password');
+    }
+});
+</script>
 @endsection
