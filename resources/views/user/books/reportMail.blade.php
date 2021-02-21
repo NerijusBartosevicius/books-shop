@@ -1,6 +1,6 @@
 <body>
 <div>Book: <a target="_blank" href="{{ route('books',['id' => $book->id]) }}">{{$book->title}}</a></div>
-    <div>Book: {{$book->description}}</div>
-    <div>Book: {{$book->price}}</div>
-    <div>Book: {{$book->discount}}</div>
+    <div>Description: {{$book->description}}</div>
+    <div>Price: {{$book->price}}</div>
+    <div>Discount: {{$book->discount}}</div>
 </body>
