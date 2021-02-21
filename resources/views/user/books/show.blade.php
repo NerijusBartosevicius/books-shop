@@ -3,12 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-4">
-
-        @if( $book->cover_exist )
-            <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
-        @else
-            <img class="card-img-top" src="{{ asset('images/books/no-cover.png') }}" alt="{{ $book->title }}">
-        @endif
+       <img class="card-img-top" src="{{ asset( $book->cover_exist ? 'images/books/'.$book->cover : 'images/books/no-cover.png') }}" alt="{{ $book->title }}">
     </div>
     <div class="col-8">
         <div class="mb-3 d-flex">

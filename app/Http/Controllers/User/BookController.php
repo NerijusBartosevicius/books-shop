@@ -23,7 +23,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews'])->ByRole()->latest()->paginate();
+        $books = Book::with(['bookReviews'])->ByRole()->latest()->simplePaginate();
         return view('user.books.index', compact('books'));
     }
 
@@ -70,7 +70,7 @@ class BookController extends Controller
     public function show($id)
     {
         $book = Book::findOrFail($id);
-        $reviews = $book->bookReviews()->simplePaginate(10);
+        $reviews = $book->bookReviews()->simplePaginate();
         return view('user.books.show', compact('book', 'reviews'));
     }
 

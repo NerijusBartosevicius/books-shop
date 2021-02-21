@@ -25,7 +25,7 @@ class HomeController extends Controller
             })
             ->ByRole()
             ->latest()
-            ->paginate();
+            ->simplePaginate();
         return view('user.books.index', compact('books'));
     }
 
@@ -37,8 +37,8 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        $book = Book::with(['authors'])->findOrFail($id);
-        $reviews = $book->bookReviews()->with(['user'])->paginate(10);
+        $book = Book::with(['authors','genres'])->findOrFail($id);
+        $reviews = $book->bookReviews()->with(['user'])->simplePaginate();
         return view('user.books.show', compact('book', 'reviews'));
     }
 }

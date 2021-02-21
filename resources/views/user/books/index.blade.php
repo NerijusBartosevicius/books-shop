@@ -6,11 +6,7 @@
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
               <a href="{{ route('books',['id' => $book->id]) }}">
-                  @if( $book->cover_exist )
-                    <img class="card-img-top" src="{{ asset('images/books/'.$book->cover) }}" alt="{{ $book->title }}">
-                  @else
-                    <img class="card-img-top" src="{{ asset('images/books/no-cover.png') }}" alt="{{ $book->title }}">
-                  @endif
+                 <img class="card-img-top" src="{{ asset( $book->cover_exist ? 'images/books/'.$book->cover : 'images/books/no-cover.png') }}" alt="{{ $book->title }}">
               </a>
               <div class="card-body">
                 <h4 class="card-title">
@@ -63,12 +59,7 @@
             <div>{{ __('No books') }}</div>
         @endforelse
      </div>
-     <div class="float-right">
-         @if ($books->previousPageUrl())
-             <a class="btn btn-light" href="{{ $books->previousPageUrl() }}"><i class="fas fa-chevron-left"></i></a>
-         @endif
-         @if ($books->nextPageUrl())
-             <a class="btn btn-light" href="{{ $books->nextPageUrl() }}"><i class="fas fa-chevron-right"></i></a>
-         @endif
+     <div class="float-right mt-3 mb-3">
+         {{ $books->links() }}
      </div>
 @endsection
