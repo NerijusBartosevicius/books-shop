@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class Book extends Model
 {
@@ -56,11 +55,6 @@ class Book extends Model
     public function getCoverExistAttribute()
     {
         return !is_null($this->cover) && file_exists(public_path('images/books/' . $this->cover));
-    }
-
-    public function getReviewsAverageAttribute()
-    {
-        return round( $this->bookReviews()->average('rating') );
     }
 
 }
