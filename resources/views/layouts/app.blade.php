@@ -31,7 +31,13 @@
                           <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-search"></i></span>
                           </div>
-                          <input type="text" class="form-control" name="search" value="{{request('search')}}" placeholder="{{ __('Search book') }}">
+                          <input type="text"
+                                 class="form-control"
+                                 name="search"
+                                 value="{{ request()->has('search') ? request('search') : Cookie::get('search') }}"
+                                 maxlength="255"
+                                 required
+                                 placeholder="{{ __('Search book') }}">
                         </div>
                       </form>
                   </div>

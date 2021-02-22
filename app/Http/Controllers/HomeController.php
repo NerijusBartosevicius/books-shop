@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use Illuminate\Support\Facades\Cookie;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,7 @@ class HomeController extends Controller
             ->withAvg('bookReviews','rating')
             ->when(request('search'),function ($query){
                 $search = request('search');
+                Cookie::queue('search',$search);
                 $query->orWhere('title','LIKE',"%{$search}%")
                       ->orWhere('description','LIKE',"%{$search}%")
                       ->orWhereHas('authors',function ($query) use ($search) {
