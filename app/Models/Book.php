@@ -57,4 +57,9 @@ class Book extends Model
         return !is_null($this->cover) && file_exists(public_path('images/books/' . $this->cover));
     }
 
+    public function scopeForApi($query)
+    {
+        return $query->where('is_confirmed', 1);
+    }
+
 }
