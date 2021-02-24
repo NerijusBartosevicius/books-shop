@@ -19,7 +19,7 @@ Route::get('/', function () {
 });
 */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/books/{id}', [App\Http\Controllers\HomeController::class, 'show'])->name('books');
+Route::get('/books/{book}', [App\Http\Controllers\HomeController::class, 'show'])->name('books');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'],function () {
@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'],function () {
     Route::group(['prefix' => 'user', 'as' =>'user.'],function (){
         Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
         Route::get('books/my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('books.myBooks');
-        Route::get('books/{id}/report', [App\Http\Controllers\User\BookController::class, 'reportBook'])->name('books.reportBook');
+        Route::get('books/{book}/report', [App\Http\Controllers\User\BookController::class, 'reportBook'])->name('books.reportBook');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
 
         // User settings

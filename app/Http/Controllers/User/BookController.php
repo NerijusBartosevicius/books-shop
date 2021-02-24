@@ -23,7 +23,11 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['bookReviews'])->ByRole()->latest()->simplePaginate();
+        $books = Book::with(['authors'])
+            ->withAvg('bookReviews','rating')
+            ->ByRole()
+            ->latest()
+            ->simplePaginate();
         return view('user.books.index', compact('books'));
     }
 
@@ -165,9 +169,8 @@ class BookController extends Controller
         return view('user.books.index', compact('books'));
     }
 
-    public function reportBook($id)
+    public function reportBook(Book $book)
     {
-        $book = Book::find($id);
         $adminUsers = User::where('is_admin', 1)->pluck('email')->toArray();
         if (count($adminUsers) > 0) {
             Mail::to($adminUsers)

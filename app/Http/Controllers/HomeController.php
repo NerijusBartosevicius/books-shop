@@ -40,7 +40,6 @@ class HomeController extends Controller
     public function show($id)
     {
         $book = Book::with(['authors','genres'])->withAvg('bookReviews','rating')->findOrFail($id);
-        $reviews = $book->bookReviews()->with(['user'])->simplePaginate();
-        return view('user.books.show', compact('book', 'reviews'));
+        return view('user.books.show', compact('book'));
     }
 }

@@ -5,12 +5,12 @@
         @forelse($books as $book)
         <div class="col-lg-2 col-md-4 col-sm-6 mb-3" style="min-width: 20%">
             <div class="card h-100">
-              <a href="{{ route('books',['id' => $book->id]) }}">
+              <a href="{{ route('books',$book) }}">
                  <img class="card-img-top" src="{{ asset( $book->cover_exist ? 'images/books/'.$book->cover : 'images/books/no-cover.png') }}" alt="{{ $book->title }}">
               </a>
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="{{ route('books',['id' => $book->id]) }}">{{ $book->title }}</a>
+                  <a href="{{ route('books',$book) }}">{{ $book->title }}</a>
                 </h4>
                 @foreach($book->authors as $author)
                     <div>{{$author->name}}</div>
