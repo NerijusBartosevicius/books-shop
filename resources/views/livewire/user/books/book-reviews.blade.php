@@ -43,17 +43,21 @@
         @auth
             <div class="row mt-3">
               <div class="col-12">
-               <form method="post" action="{{ route('user.review') }}">
+
+               <form wire:submit.prevent="store_review">
                 @csrf
                    <div class="rating">
-                  <input type="radio" id="star5" name="rating" checked value="{{old('rating',5)}}" /><label for="star5" title="Meh">5 stars</label>
-                  <input type="radio" id="star4" name="rating" value="{{old('rating',4)}}" /><label for="star4" title="Not bad">4 stars</label>
-                  <input type="radio" id="star3" name="rating" value="{{old('rating',3)}}" /><label for="star3" title="Kinda bad">3 stars</label>
-                  <input type="radio" id="star2" name="rating" value="{{old('rating',2)}}" /><label for="star2" title="Very bad">2 stars</label>
-                  <input type="radio" id="star1" name="rating" value="{{old('rating',1)}}" /><label for="star1" title="Sucks big time">1 star</label>
+                  <input type="radio" id="star5" name="rating" value="5" wire:model="rating" checked /><label for="star5" title="Meh">5 stars</label>
+                  <input type="radio" id="star4" name="rating" value="4" wire:model="rating" /><label for="star4" title="Not bad">4 stars</label>
+                  <input type="radio" id="star3" name="rating" value="3"  wire:model="rating" /><label for="star3" title="Kinda bad">3 stars</label>
+                  <input type="radio" id="star2" name="rating" value="2" wire:model="rating" /><label for="star2" title="Very bad">2 stars</label>
+                  <input type="radio" id="star1" name="rating" value="1" wire:model="rating" /><label for="star1" title="Sucks big time">1 star</label>
                 </div>
                 <div class="form-group">
-                    <textarea class="form-control" name="message" required rows="5">{{old('message')}}</textarea>
+                    <textarea class="form-control {{ $errors->has('message') ? 'is-invalid' : ''}}" name="message" rows="5" wire:model="message"></textarea>
+                    @if($errors->has('message'))
+                        <div class="invalid-feedback">{{ $errors->first('message') }}</div>
+                    @endif
                 </div>
                 <button type="submit" class="btn btn-primary">{{ __('Rate') }}</button>
                 </form>

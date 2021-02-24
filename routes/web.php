@@ -29,7 +29,6 @@ Route::group(['middleware' => 'auth'],function () {
     });
 
     Route::group(['prefix' => 'user', 'as' =>'user.'],function (){
-        Route::post('review', [App\Http\Controllers\User\BookReviewController::class, 'store'])->name('review');
         Route::get('books/my-books', [App\Http\Controllers\User\BookController::class, 'myBooks'])->name('books.myBooks');
         Route::get('books/{book}/report', [App\Http\Controllers\User\BookController::class, 'reportBook'])->name('books.reportBook');
         Route::resource('books', App\Http\Controllers\User\BookController::class);
