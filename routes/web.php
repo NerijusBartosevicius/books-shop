@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth'],function () {
     });
 
     Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' =>'admin.'],function (){
-        Route::get('books/{id}/confirmBook', [App\Http\Controllers\Admin\BookController::class, 'confirmBook'])->name('books.confirmBook');
+        Route::put('books/{id}/confirmBook', [App\Http\Controllers\Admin\BookController::class, 'confirmBook'])->name('books.confirmBook');
         Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show','create']);
     });
 });

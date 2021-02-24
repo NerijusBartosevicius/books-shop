@@ -18,7 +18,11 @@
               </form>
           @endcan
           @isAdmin
-            <a class="btn btn-sm btn-dark" href="{{ route('admin.books.confirmBook',$book) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+              <form method="POST" action="{{ route('admin.books.confirmBook',$book) }}">
+               @csrf
+               @method('PUT')
+                  <input type="submit" class="btn-dark btn btn-sm" value="{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}">
+              </form>
           @endisAdmin
           @auth
              <a class="btn btn-sm btn-dark {{ empty(env('MAIL_HOST')) ? 'disabled' : '' }}" href="{{ route('user.books.reportBook',$book) }}">{{__('Report')}}</a>

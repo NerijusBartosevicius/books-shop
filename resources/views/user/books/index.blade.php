@@ -44,7 +44,11 @@
                 @isAdmin
                     <hr>
                     <div class="d-flex">
-                    <a class="btn btn-sm btn-dark mr-1" href="{{ route('admin.books.confirmBook',$book) }}">{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}</a>
+                    <form method="POST" action="{{ route('admin.books.confirmBook',$book) }}">
+                      @csrf
+                        @method('PUT')
+                        <input type="submit" class="btn-dark btn btn-sm" value="{{ $book->is_confirmed == 0 ? __('Confirm') : __('Unconfirm') }}">
+                    </form>
                     <form method="POST" action="{{ route('user.books.destroy',$book) }}">
                       @csrf
                       @method('DELETE')

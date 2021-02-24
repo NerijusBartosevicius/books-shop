@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class BookController extends Controller
 {
 
-    public function confirmBook($id)
+    public function confirmBook(Request $request, $id)
     {
         $book = Book::find($id);
         $book->is_confirmed = !$book->is_confirmed;

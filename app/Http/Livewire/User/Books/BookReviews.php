@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\User\Books;
 
-use App\Http\Requests\BookReviewStoreRequest;
 use App\Models\Book;
 use Livewire\Component;
 use Livewire\WithPagination;
