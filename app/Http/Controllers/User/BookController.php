@@ -73,9 +73,8 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        $book = Book::findOrFail($id);
-        $reviews = $book->bookReviews()->simplePaginate();
-        return view('user.books.show', compact('book', 'reviews'));
+        $book = Book::with(['authors','genres'])->findOrFail($id);
+        return view('user.books.show', compact('book'));
     }
 
     /**

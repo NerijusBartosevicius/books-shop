@@ -15,16 +15,22 @@ class HomeController extends Controller
     public function index()
     {
         $books = Book::with(['authors'])
-            ->withAvg('bookReviews','rating')
-            ->when(request('search'),function ($query){
-                $search = request('search');
-                Cookie::queue('search',$search);
-                $query->orWhere('title','LIKE',"%{$search}%")
-                      ->orWhere('description','LIKE',"%{$search}%")
-                      ->orWhereHas('authors',function ($query) use ($search) {
-                          $query->where('name','LIKE',"%{$search}%");
-                      });
-            })
+            ->withAvg('bookReviews', 'rating')
+            ->when(
+                request('search'),
+                function ($query) {
+                    $search = request('search');
+                    Cookie::queue('search', $search);
+                    $query->orWhere('title', 'LIKE', "%{$search}%")
+                        ->orWhere('description', 'LIKE', "%{$search}%")
+                        ->orWhereHas(
+                            'authors',
+                            function ($query) use ($search) {
+                                $query->where('name', 'LIKE', "%{$search}%");
+                            }
+                        );
+                }
+            )
             ->ByRole()
             ->latest()
             ->simplePaginate();
@@ -39,7 +45,7 @@ class HomeController extends Controller
      */
     public function show($id)
     {
-        $book = Book::with(['authors','genres'])->withAvg('bookReviews','rating')->findOrFail($id);
+        $book = Book::with(['authors', 'genres'])->findOrFail($id);
         return view('user.books.show', compact('book'));
     }
 }
