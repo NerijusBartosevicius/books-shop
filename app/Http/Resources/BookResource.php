@@ -17,7 +17,7 @@ class BookResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'cover' => url($this->cover_exist ? 'images/books/' . $this->cover : 'images/books/no-cover.png'),
+            'cover' => $this->cover_full_path,
             'description' => $this->whenAppended('description', $this->description),
             'price' => $this->price,
             'authors' => AuthorResource::collection($this->whenLoaded('authors', $this->authors)),

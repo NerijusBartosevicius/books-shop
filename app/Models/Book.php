@@ -17,6 +17,7 @@ class Book extends Model
         'is_confirmed' => 'boolean',
     ];
 
+
     public function authors()
     {
         return $this->belongsToMany(Author::class);
@@ -55,6 +56,11 @@ class Book extends Model
     public function getCoverExistAttribute()
     {
         return !is_null($this->cover) && file_exists(public_path('images/books/' . $this->cover));
+    }
+
+    public function getCoverFullPathAttribute()
+    {
+        return asset($this->cover_exist ? 'images/books/' . $this->cover : 'images/books/no-cover.png');
     }
 
     public function scopeForApi($query)

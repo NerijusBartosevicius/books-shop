@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-4">
-       <img class="card-img-top" src="{{ asset( $book->cover_exist ? 'images/books/'.$book->cover : 'images/books/no-cover.png') }}" alt="{{ $book->title }}">
+       <img class="card-img-top" src="{{ $book->CoverFullPath }}" alt="{{ $book->title }}">
     </div>
     <div class="col-8">
         <div class="mb-3 d-flex">
