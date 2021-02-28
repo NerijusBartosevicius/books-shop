@@ -16,7 +16,7 @@ class BookController extends Controller
 
     public function show($id)
     {
-        $book = Book::forApi()->findOrFail($id);
-        return new BookResource($book->append('description'));
+        $book = Book::forApi()->with(['authors', 'genres'])->findOrFail($id);
+        return new BookResource($book);
     }
 }

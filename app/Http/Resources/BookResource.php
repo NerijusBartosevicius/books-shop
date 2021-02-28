@@ -18,10 +18,10 @@ class BookResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'cover' => $this->cover_full_path,
-            'description' => $this->whenAppended('description', $this->description),
+            'description' => $this->when($request->book, $this->description),
             'price' => $this->price,
-            'authors' => AuthorResource::collection($this->whenLoaded('authors', $this->authors)),
-            'genres ' => GenreResource::collection($this->whenLoaded('genres', $this->genres)),
+            'authors' => $this->authors->implode('name', ','),
+            'genres ' => $this->genres->implode('name', ','),
         ];
     }
 }
