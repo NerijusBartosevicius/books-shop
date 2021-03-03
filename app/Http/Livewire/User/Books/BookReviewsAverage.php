@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\Books;
 
 use App\Models\Book;
+use App\Models\BookReview;
 use Livewire\Component;
 
 class BookReviewsAverage extends Component
@@ -12,12 +13,8 @@ class BookReviewsAverage extends Component
         'review_count_updated' => 'calculateReviewsAverage'
     ];
 
-    public $book;
-
-    public function mount()
-    {
-        $this->book = Book::withAvg('bookReviews', 'rating')->findOrFail(request('book'));
-    }
+    public $bookId;
+    public $avgRating;
 
     public function render()
     {
@@ -26,6 +23,6 @@ class BookReviewsAverage extends Component
 
     public function calculateReviewsAverage()
     {
-        $this->book = Book::withAvg('bookReviews', 'rating')->findOrFail($this->book->id);
+        $this->avgRating = BookReview::where('book_id', $this->bookId)->avg('rating');
     }
 }

@@ -43,7 +43,7 @@
         @auth
             <div class="row mt-3">
               <div class="col-12">
-                @if ($succsess)
+                @if ($success)
                     <div class="alert alert-success" role="alert">
                       {{ __('Review created successfully!!') }}
                     </div>

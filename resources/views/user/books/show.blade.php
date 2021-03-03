@@ -34,7 +34,10 @@
                 <h1>{{ $book->title }}</h1>
             </div>
 
-            @livewire('user.books.book-reviews-average')
+            @livewire('user.books.book-reviews-average',[
+                'bookId' => $book->id,
+                'avgRating' => $book->book_reviews_avg_rating,
+            ])
 
         </div>
 
@@ -72,7 +75,7 @@
     </div>
 </div>
 
-@livewire('user.books.book-reviews')
+@livewire('user.books.book-reviews', ['book' => $book])
 
 @endsection
 

@@ -16,18 +16,12 @@ class BookReviews extends Component
 
     public $rating = 5;
     public $message;
-    public $succsess;
+    public $success = false;
 
     protected $rules = [
         'rating' => 'required|integer|min:1|max:5',
         'message' => 'required',
     ];
-
-    public function mount()
-    {
-        $this->succsess = false;
-        $this->book = Book::findOrFail(request('book'));
-    }
 
     public function render()
     {
@@ -47,7 +41,7 @@ class BookReviews extends Component
         );
 
         $this->reset(['message']);
-        $this->succsess = true;
+        $this->success = true;
         $this->emit('review_count_updated');
     }
 
