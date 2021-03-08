@@ -3,6 +3,9 @@
 @section('content')
 <div class="row">
     <div class="col-4">
+        <div class="mb-2">
+            @livewire('user.books.add-to-cart', ['bookId' => $book->id])
+        </div>
        <img class="card-img-top" src="{{ $book->CoverFullPath }}" alt="{{ $book->title }}">
     </div>
     <div class="col-8">

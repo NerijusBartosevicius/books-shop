@@ -20,6 +20,7 @@ Route::get('/', function () {
 */
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/books/{book}', [App\Http\Controllers\HomeController::class, 'show'])->name('books');
+Route::get('/cart', \App\Http\Controllers\User\CartController::class)->name('cart');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'],function () {

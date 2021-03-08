@@ -8,7 +8,8 @@ use Livewire\Component;
 class CartBooksCounter extends Component
 {
     protected $listeners = [
-        'recalculateCartBooksCount' => 'recalculate'
+        'recalculateCartBooksCount' => 'recalculate',
+        'removeFromCart' => 'recalculate',
     ];
 
     public $cartBooksCount = 0;

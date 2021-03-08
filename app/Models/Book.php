@@ -53,6 +53,11 @@ class Book extends Model
         return number_format($this->price - ($this->discount * ($this->price / 100)), 2);
     }
 
+    public function getDiscountSumAttribute()
+    {
+        return number_format($this->price - $this->price_after_discount, 2);
+    }
+
     public function getCoverExistAttribute()
     {
         return !is_null($this->cover) && file_exists(public_path('images/books/' . $this->cover));
