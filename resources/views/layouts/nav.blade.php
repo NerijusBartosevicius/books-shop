@@ -60,6 +60,9 @@
 
                             </li>
                         @endguest
+                        <li class="nav-item">
+                            @livewire('user.books.cart-books-counter')
+                        </li>
                     </ul>
                 </div>
 </div>

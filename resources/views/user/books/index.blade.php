@@ -8,7 +8,7 @@
               <a href="{{ route('books',$book) }}">
                  <img class="card-img-top" src="{{ $book->cover_full_path }}" alt="{{ $book->title }}">
               </a>
-              <div class="card-body">
+              <div class="card-body position-relative">
                 <h4 class="card-title">
                   <a href="{{ route('books',$book) }}">{{ $book->title }}</a>
                 </h4>
@@ -24,6 +24,9 @@
                     @endif
                 </h4>
                 <p class="card-text">{{ \Str::of($book->description)->limit(50) }}</p>
+                <div class="position-absolute w-100" style="bottom:0px; left:0px;">
+                    @livewire('user.books.add-to-cart', ['bookId' => $book->id])
+                </div>
               </div>
               <div class="card-footer">
                 <small class="text-muted">
