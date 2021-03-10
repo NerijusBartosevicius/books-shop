@@ -27,7 +27,7 @@ class BookFactory extends Factory
             'price' => $this->faker->numberBetween(1, 999),
             'discount' => $this->faker->numberBetween(0, 100),
             'description' => $this->faker->realText(),
-            'cover' => $this->faker->image(public_path('images/books'), 400, 700, 'books', false),
+            //'cover' => $this->faker->image(public_path('images/books'), 400, 700, null, false),
             'is_confirmed' => rand(0, 1),
             'user_id' => User::all()->random()->id
         ];
