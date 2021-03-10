@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,14 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*
-Route::get('/', function () {
-    return view('welcome');
-});
-*/
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/books/{book}', [App\Http\Controllers\HomeController::class, 'show'])->name('books');
 Route::get('/cart', \App\Http\Controllers\User\CartController::class)->name('cart');
+Route::post('payment/payment-charge', [\App\Http\Controllers\Payment\PaymentController::class,'charge'])->name('payment.charge');
+Route::get('payment/success', [\App\Http\Controllers\Payment\PaymentController::class,'paymentSuccess'])->name('payment.success');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'],function () {

@@ -63,8 +63,36 @@
                         <td>{{ $books->sum('price_after_discount') }} <i class="fas fa-euro-sign"></i></td>
                     </tr>
                 </table>
-
             </div>
         </div>
+
+        @guest
+            <div class="row" wire:ignore>
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Don't have an account?</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Maybe you want to sign up?</h6>
+                    <p class="card-text">Log in and see your purchases.</p>
+                    <a class="btn btn-dark" href="{{ route('login') }}">{{ __('Sign in') }}</a>
+                    <a class="btn btn-dark" href="{{ route('register') }}">{{ __('Sign up') }}</a>
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Don't want to register?</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Buy without registration!</h6>
+                    <p class="card-text">An account will not be created for unregistered users.</p>
+                    <button id="checkout-button" class="btn btn-dark float-right">Checkout</button>
+                  </div>
+                </div>
+            </div>
+        </div>
+        @endguest
+        @auth
+            <button id="checkout-button" class="btn btn-dark float-right">{{ __('Checkout') }}</button>
+        @endauth
     @endif
 </div>
