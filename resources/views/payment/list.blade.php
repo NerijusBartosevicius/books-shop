@@ -22,7 +22,7 @@
           <td>{{ $payment->total_amount }} <i class="fas fa-euro-sign"></i></td>
         </tr>
     @empty
-        <div class="mb-2">{{ __('You are the only user!') }}</div>
+        <div class="mb-2">{{ __('Payments not found.') }}</div>
     @endforelse
   </tbody>
   </table>

@@ -30,8 +30,8 @@ class ChargeSucceededJob implements ShouldQueue
             [
                 'email' => 'nerijus@lt',
                 'name' => 'nerijus',
-                'stripe_id' => $charge['id'],
-                'total' => $charge['amount']
+                'stripe_id' => 10,
+                'total' => 50
             ]
         );
         session()->remove('cart');
