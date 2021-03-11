@@ -26,14 +26,7 @@ class ChargeSucceededJob implements ShouldQueue
     public function handle()
     {
         $charge = $this->webhookCall->payload['data']['object'];
-        Payment::create(
-            [
-                'email' => $charge['billing_details']['email'],
-                'name' => $charge['billing_details']['name'],
-                'stripe_id' => $charge['id'],
-                'total' => $charge['amount']
-            ]
-        );
+        
         session()->remove('cart');
     }
 }
