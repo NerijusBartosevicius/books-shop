@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Facades\Cart as CartFacade;
 use App\Http\Controllers\Controller;
+use App\Jobs\StripeWebhooks\ChargeSucceededJob;
 use App\Models\Payment;
 use Str;
 use Stripe\Checkout\Session;
@@ -50,7 +51,7 @@ class PaymentController extends Controller
     }
 
     public function paymentSuccess()
-    {
+    {   ChargeSucceededJob::dispatch();
         return view('payment.success');
     }
 
