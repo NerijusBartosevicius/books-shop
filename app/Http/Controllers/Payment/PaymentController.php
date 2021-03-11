@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Payment;
 
 use App\Facades\Cart as CartFacade;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Str;
 use Stripe\Checkout\Session;
-use Stripe\Event;
 use Stripe\Stripe;
-use UnexpectedValueException;
 
 class PaymentController extends Controller
 {
@@ -18,11 +15,6 @@ class PaymentController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $session = Session::create($this->getPaymentData());
         return response()->json(['id' => $session->id]);
-    }
-
-    public function paymentSuccess()
-    {
-
     }
 
     private function getPaymentData()
@@ -54,5 +46,10 @@ class PaymentController extends Controller
         }
 
         return $cartData;
+    }
+
+    public function paymentSuccess()
+    {
+        return view('payment.success');
     }
 }

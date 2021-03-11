@@ -24,6 +24,6 @@ class ChargeSucceededJob implements ShouldQueue
     public function handle()
     {
         $charge = $this->webhookCall->payload['data']['object'];
-        info(json_encode($charge));
+        session()->forget('cart');
     }
 }
