@@ -2,6 +2,7 @@
 
 namespace App\Jobs\StripeWebhooks;
 
+use App\Models\Payment;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -16,6 +17,7 @@ class ChargeSucceededJob implements ShouldQueue
     /** @var \Spatie\WebhookClient\Models\WebhookCall */
     public $webhookCall;
 
+
     public function __construct(WebhookCall $webhookCall)
     {
         $this->webhookCall = $webhookCall;
@@ -24,6 +26,14 @@ class ChargeSucceededJob implements ShouldQueue
     public function handle()
     {
         $charge = $this->webhookCall->payload['data']['object'];
-        session()->forget('cart');
+        Payment::create(
+            [
+                'email' => $charge['billing_details']['email'],
+                'name' => $charge['billing_details']['name'],
+                'stripe_id' => $charge['id'],
+                'total' => $charge['amount']
+            ]
+        );
+        session()->remove('cart');
     }
 }

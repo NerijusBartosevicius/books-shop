@@ -55,6 +55,9 @@ class Cart
 
     public function in_cart(int $bookId): bool
     {
+        if ($this->get() === []) {
+            $this->set($this->empty());
+        }
         $cart = $this->get();
         $exists = array_search($bookId, array_column($cart['books'], 'id'));
         if ($exists !== false) {
