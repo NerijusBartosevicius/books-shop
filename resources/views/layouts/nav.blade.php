@@ -18,6 +18,9 @@
                          <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                          </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('payment.list') }}">{{ __('Payments') }}</a>
+                         </li>
                         @endisAdmin
                         @Auth
                              <li class="nav-item">
