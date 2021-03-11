@@ -18,14 +18,9 @@ class ChargeSucceededJob implements ShouldQueue
     public $webhookCall;
 
 
-    public function __construct(WebhookCall $webhookCall)
-    {
-        $this->webhookCall = $webhookCall;
-    }
-
     public function handle()
     {
-        $charge = $this->webhookCall->payload['data']['object'];
+       // $charge = $this->webhookCall->payload['data']['object'];
         Payment::create(
             [
                 'email' => 'nerijus@lt',
