@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Payment;
 
 use App\Facades\Cart as CartFacade;
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use Str;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
@@ -51,5 +52,11 @@ class PaymentController extends Controller
     public function paymentSuccess()
     {
         return view('payment.success');
+    }
+
+    public function paymentList()
+    {
+        $payments = Payment::simplePaginate();
+        return view('payment.list', compact('payments'));
     }
 }

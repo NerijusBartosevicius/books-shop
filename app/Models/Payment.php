@@ -15,4 +15,11 @@ class Payment extends Model
         'stripe_id',
         'total'
     ];
+
+    protected $perPage = 20;
+
+    public function getTotalAmountAttribute()
+    {
+        return ($this->total > 0) ? $this->total / 100 : 0;
+    }
 }
