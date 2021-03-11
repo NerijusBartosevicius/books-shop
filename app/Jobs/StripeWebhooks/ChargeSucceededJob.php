@@ -27,7 +27,14 @@ class ChargeSucceededJob implements ShouldQueue
     {
         session()->remove('cart');
         $charge = $this->webhookCall->payload['data']['object'];
-        Payment::create(
+        $payment = new Payment();
+        $payment->email = $charge['billing_details']['email'];
+        $payment->name = $charge['billing_details']['name'];
+        $payment->stripe_id = $charge['id'];
+        $payment->total = $charge['amount'];
+        $payment->save();
+        /*
+        Payment::(
             [
                 'email' => $charge['billing_details']['email'],
                 'name' => $charge['billing_details']['name'],
@@ -35,5 +42,6 @@ class ChargeSucceededJob implements ShouldQueue
                 'total' => $charge['amount']
             ]
         );
+        */
     }
 }
