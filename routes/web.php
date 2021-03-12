@@ -19,7 +19,6 @@ Route::get('/books/{book}', [App\Http\Controllers\HomeController::class, 'show']
 Route::get('/cart', \App\Http\Controllers\User\CartController::class)->name('cart');
 Route::post('payment/payment-charge', [\App\Http\Controllers\Payment\PaymentController::class,'charge'])->name('payment.charge');
 Route::get('payment/success', [\App\Http\Controllers\Payment\PaymentController::class,'paymentSuccess'])->name('payment.success');
-Route::get('payment/list', [\App\Http\Controllers\Payment\PaymentController::class,'paymentList'])->name('payment.list');
 Route::stripeWebhooks('stripe-webhook');
 
 Auth::routes();
@@ -43,5 +42,6 @@ Route::group(['middleware' => 'auth'],function () {
     Route::group(['middleware' => 'isAdmin','prefix' => 'admin', 'as' =>'admin.'],function (){
         Route::put('books/{id}/confirmBook', [App\Http\Controllers\Admin\BookController::class, 'confirmBook'])->name('books.confirmBook');
         Route::resource('users', App\Http\Controllers\Admin\UserController::class)->except(['show','create']);
+        Route::get('payment/list', [\App\Http\Controllers\Payment\PaymentController::class,'paymentList'])->name('payment.list');
     });
 });
